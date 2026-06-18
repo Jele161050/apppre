@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jialie - Welcome to my shop</title>
+    
+    <!-- Fonts: Mitr for Thai, Playfair Display for English Headers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        mitr: ['Mitr', 'sans-serif'],
+                        playfair: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        themebg: '#05010a', 
+                        cardbg: '#120516',
+                        themepink: '#ff66b2',
+                        themetext: '#e2d5de',
+                        iconpink1: '#b2697e',
+                        iconpink2: '#c54b73',
+                        iconred: '#d34e4e',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #05010a;
+            color: #e2d5de;
+            font-family: 'Mitr', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- Magical Background Effects --- */
+        .magical-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            background: radial-gradient(circle at top right, #1a0524 0%, #05010a 70%);
+            overflow: hidden;
+        }
+
+        /* Glowing Moon */
+        .moon {
+            position: absolute;
+            top: 15%;
+            left: -10%;
+            width: 50vw;
+            max-width: 400px;
+            height: auto;
+            opacity: 0.6;
+            filter: drop-shadow(0 0 40px rgba(255, 102, 178, 0.6));
+            transform: rotate(-15deg);
+        }
+
+        /* Purple/Pink Bottom Glow */
+        .bottom-glow {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40vh;
+            background: linear-gradient(to top, rgba(138, 43, 226, 0.4), rgba(255, 20, 147, 0.1), transparent);
+            filter: blur(40px);
+            z-index: -1;
+        }
+
+        /* Animated Stars Pattern */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 2px),
+                              radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 1px),
+                              radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 2px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            animation: twinkle 5s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+
+        /* Floating Animation for SVG Stars */
+        .float-star {
+            position: absolute;
+            animation: floatUpDown 4s infinite ease-in-out alternate;
+            filter: drop-shadow(0 0 8px rgba(255, 102, 178, 0.8));
+        }
+        .float-star:nth-child(2) { animation-duration: 5s; animation-delay: 1s; }
+        .float-star:nth-child(3) { animation-duration: 6s; animation-delay: 2s; }
+        .float-star:nth-child(4) { animation-duration: 4.5s; animation-delay: 0.5s; }
+
+        @keyframes floatUpDown {
+            0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 0.6; }
+            100% { transform: translateY(-20px) scale(1.1) rotate(15deg); opacity: 1; }
+        }
+
+        /* --- Card Styles --- */
+        
+        /* Updated: Glass Card with glowing border */
+        .glass-card {
+            background-color: rgba(18, 5, 22, 0.85);
+            backdrop-filter: blur(10px);
+            /* เปลี่ยนขอบเป็นสีชมพูอ่อนๆ พร้อมแสงเรืองรอง */
+            border: 1px solid rgba(255, 102, 178, 0.3);
+            border-radius: 16px;
+            box-shadow: 0 0 15px rgba(255, 102, 178, 0.15), inset 0 0 10px rgba(255, 102, 178, 0.05);
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Hover effect ให้สว่างขึ้น */
+        .glass-card:hover {
+            border-color: rgba(255, 102, 178, 0.8);
+            box-shadow: 0 0 25px rgba(255, 102, 178, 0.4), inset 0 0 15px rgba(255, 102, 178, 0.2);
+            transform: translateY(-3px);
+        }
+
+        /* Updated: Glow Card with pulsing animation */
+        .glow-card {
+            background-color: rgba(18, 5, 22, 0.9);
+            border: 1px solid rgba(255, 20, 147, 0.6);
+            border-radius: 16px;
+            animation: pulseBorder 3s infinite alternate;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .glow-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 35px rgba(255, 20, 147, 0.7), inset 0 0 20px rgba(255, 20, 147, 0.4);
+        }
+
+        @keyframes pulseBorder {
+            0% { box-shadow: 0 0 15px rgba(255, 20, 147, 0.2), inset 0 0 10px rgba(255, 20, 147, 0.1); border-color: rgba(255, 20, 147, 0.4); }
+            100% { box-shadow: 0 0 30px rgba(255, 20, 147, 0.6), inset 0 0 15px rgba(255, 20, 147, 0.3); border-color: rgba(255, 20, 147, 1); }
+        }
+
+        /* Modal Styles */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 102, 178, 0.3); 
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 102, 178, 0.7); 
+        }
+
+        .text-underline-highlight {
+            border-bottom: 1px solid #888;
+            padding-bottom: 2px;
+        }
+
+        .top-menu-btn {
+            transition: all 0.2s ease;
+        }
+
+        .top-menu-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 0 18px rgba(255, 102, 178, 0.25);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen">
+    
+    <!-- Magical Background Layer -->
+    <div class="magical-bg" id="backgroundLayer">
+        <div class="stars"></div>
+        
+        <!-- Floating Stars (New!) -->
+        <svg class="float-star" style="top: 10%; right: 15%; width: 30px;" viewBox="0 0 24 24" fill="none" stroke="#ff66b2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15 8.5 22 9 16.5 13.5 18 20 12 16.5 6 20 7.5 13.5 2 9 9 8.5 12 2"/>
+        </svg>
+        <svg class="float-star" style="top: 30%; left: 5%; width: 45px; opacity: 0.5;" viewBox="0 0 24 24" fill="none" stroke="#ff99cc" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15 8.5 22 9 16.5 13.5 18 20 12 16.5 6 20 7.5 13.5 2 9 9 8.5 12 2"/>
+        </svg>
+        <svg class="float-star" style="top: 60%; right: 5%; width: 20px;" viewBox="0 0 24 24" fill="none" stroke="#ffb3d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15 8.5 22 9 16.5 13.5 18 20 12 16.5 6 20 7.5 13.5 2 9 9 8.5 12 2"/>
+        </svg>
+        <svg class="float-star" style="bottom: 15%; left: 20%; width: 35px;" viewBox="0 0 24 24" fill="none" stroke="#ff1493" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15 8.5 22 9 16.5 13.5 18 20 12 16.5 6 20 7.5 13.5 2 9 9 8.5 12 2"/>
+        </svg>
+
+        <!-- SVG Glowing Crescent Moon -->
+        <svg class="moon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 60 5 A 45 45 0 1 0 95 50 A 35 35 0 1 1 60 5 Z" fill="#ff99cc" opacity="0.9"/>
+            <path d="M 60 5 A 45 45 0 1 0 95 50 A 35 35 0 1 1 60 5 Z" fill="url(#moonGlowGradient)" opacity="0.5"/>
+            <defs>
+                <linearGradient id="moonGlowGradient" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#ffffff"/>
+                    <stop offset="100%" stop-color="#ff1493"/>
+                </linearGradient>
+            </defs>
+        </svg>
+        <div class="bottom-glow"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="relative z-10 max-w-2xl mx-auto px-5 pt-12 pb-20">
+        
+        <!-- Header Profile -->
+        <div class="text-center mb-10">
+            <h1 id="heroTitle" class="font-playfair text-4xl text-white mb-2 tracking-wide mt-8" style="text-shadow: 0 0 15px rgba(255,102,178,0.6);">Jialie</h1>
+            <p class="font-playfair italic text-themepink mb-4 text-lg flex items-center justify-center gap-2">
+                <span id="heroWelcomeText">Welcome to my shop</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+            </p>
+            <p id="heroDescription" class="text-sm font-light leading-relaxed">Website จำหน่ายแอพพรีเมี่ยม 24hr <br>สำหรับตัวแทนและลูกค้าทั่วไป</p>
+        </div>
+
+        <div class="glass-card p-3 mb-6 flex flex-wrap items-center justify-center gap-2 text-sm">
+            <button onclick="openAuthModal('login')" class="top-menu-btn px-4 py-2 rounded-full bg-themepink/15 border border-themepink/30 text-white hover:bg-themepink/25">เข้าสู่ระบบ</button>
+            <button onclick="openAuthModal('register')" class="top-menu-btn px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-200 hover:bg-white/10">สมัครสมาชิก</button>
+            <button onclick="openAuthModal('admin')" class="top-menu-btn px-4 py-2 rounded-full bg-black/30 border border-themepink/50 text-themepink hover:bg-themepink/10">Admin หลังบ้าน</button>
+        </div>
+
+        <!-- Section: Services -->
+        <div class="glass-card p-6 mb-6" id="servicesSection">
+            <h2 class="font-playfair text-xl text-white mb-4 flex items-center gap-2">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="text-themepink" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15 8.5 22 9 16.5 13.5 18 20 12 16.5 6 20 7.5 13.5 2 9 9 8.5 12 2"/>
+                </svg>
+                Contact links
+            </h2>
+            <p class="mb-4 text-sm font-medium text-white">เมนูต่างๆ</p>
+            <div id="contactLinksGrid" class="grid grid-cols-2 gap-3 text-sm"></div>
+        </div>
+
+        <!-- Section: Pop-up trigger card -->
+        <div onclick="openModal()" class="glow-card p-5 mb-6 cursor-pointer flex items-center justify-between group">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-themepink/20 flex items-center justify-center text-themepink group-hover:scale-110 transition shadow-[inset_0_0_15px_rgba(255,102,178,0.4)]">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="6" width="20" height="12" rx="2"/>
+                        <path d="M6 2h12M10 22h4"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-playfair text-lg text-white">เติมเงิน</h3>
+                    <p class="text-sm text-gray-300">⭐️ รับ Bank & True Money Wallet</p>
+                </div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff66b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition">
+                <polyline points="9 18 15 12 9 6"/>
+            </svg>
+        </div>
+
+        <!-- Section: Stats -->
+        <div class="glass-card p-6 mb-6 space-y-4">
+            <div class="flex items-center justify-between gap-3 border-b border-white/10 pb-2">
+                <h2 class="font-playfair text-xl text-white">Website Stats</h2>
+                <span class="text-xs text-gray-400">อัปเดตอัตโนมัติ</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div class="rounded-2xl border border-white/10 bg-black/30 p-4">
+                    <p class="text-xs text-gray-400 mb-2">จำนวนผู้ใช้เว็บไซต์ทั้งหมด</p>
+                    <p id="statTotalUsers" class="text-2xl font-bold text-white">0</p>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-black/30 p-4">
+                    <p class="text-xs text-gray-400 mb-2">จำนวนสินค้าที่ขายแล้ว</p>
+                    <p id="statSoldProducts" class="text-2xl font-bold text-white">0</p>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-black/30 p-4">
+                    <p class="text-xs text-gray-400 mb-2">จำนวนผู้กดเข้าเว็บไซต์ทั้งหมด</p>
+                    <p id="statWebsiteVisits" class="text-2xl font-bold text-white">0</p>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-black/30 p-4">
+                    <p class="text-xs text-gray-400 mb-2">จำนวนสินค้าที่ขายไปแล้ว</p>
+                    <p id="statSoldOrders" class="text-2xl font-bold text-white">0</p>
+                </div>
+            </div>
+
+            <p class="text-xs text-themepink italic leading-relaxed opacity-80 flex items-start gap-1">
+                <span>ตัวเลขพวกนี้ถูกเก็บไว้ในเครื่องนี้และปรับขึ้นเองจากการเข้าเว็บ, สมัครสมาชิก และการยืนยันสลิป</span>
+            </p>
+        </div>
+
+        <!-- Conditions -->
+        <div class="glass-card p-6 mb-6 space-y-6">
+            <div class="flex gap-4 items-start">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff99cc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0 filter drop-shadow-[0_0_5px_rgba(255,102,178,0.5)]">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <p class="text-sm font-light leading-relaxed text-[#f0f0f0]">สนใจสมัครเว็บไซต์เรทสำหรับตัวแทน สามารถแคปหน้าร้าน / ช่องทางการขายที่มีเครดิตส่งมาได้ที่ Line : @jialieluv คัดคนนะค้าบ</p>
+            </div>
+
+            <div class="flex gap-4 items-center">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff66b2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 filter drop-shadow-[0_0_5px_rgba(255,102,178,0.5)]">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+                <p class="text-sm font-light text-[#f0f0f0]">ซื้อใช้เองใช้ราคาหน้าร้านปกติเท่านั้น จับได้ปรับทุกกรณี</p>
+            </div>
+
+            <div class="flex gap-4 items-start">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff99cc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0 filter drop-shadow-[0_0_5px_rgba(255,102,178,0.5)]">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                    <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+                <p class="text-sm font-light leading-relaxed text-[#f0f0f0]">
+                    รบกวนตัวแทนทำตามกฎด้วยนะคะ ทำผิดกฎปรับจริงนะคะ <span class="text-underline-highlight text-themepink">เน้นย้ำหลังจากส่งงานให้รีเช็ค ตอบกลับภายในไม่เกิน 30 นาที</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Netflix Plans -->
+        <div class="glass-card p-6 mb-6 space-y-4" id="netflixSection">
+            <div class="flex items-center justify-between gap-3 border-b border-white/10 pb-2">
+                <h2 class="font-playfair text-3xl text-white tracking-wide" style="text-shadow: 0 0 10px rgba(255,20,147,0.5);">Netflix</h2>
+                <button type="button" onclick="openModal()" class="text-xs rounded-full border border-themepink/30 bg-themepink/10 px-3 py-1.5 text-themepink hover:bg-themepink/20 transition">เติมเงิน</button>
+            </div>
+
+            <div id="netflixPlansGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+
+            <div class="rounded-2xl border border-themepink/20 bg-black/35 p-4 space-y-4">
+                <div class="flex items-center justify-between gap-3">
+                    <div>
+                        <p class="text-xs text-gray-400">แพ็กเกจที่เลือก</p>
+                        <p id="selectedNetflixName" class="text-lg font-medium text-white">ยังไม่ได้เลือก</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs text-gray-400">ราคา</p>
+                        <p id="selectedNetflixPrice" class="text-lg font-medium text-themepink">0.-</p>
+                    </div>
+                </div>
+
+                <div class="grid gap-2 sm:grid-cols-2">
+                    <button type="button" onclick="buySelectedNetflixPlan()" class="rounded-xl bg-themepink px-4 py-2.5 text-sm font-medium text-white hover:bg-[#ff4fa6] transition">ซื้อสินค้า</button>
+                    <button type="button" onclick="openModal()" class="rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-gray-200 hover:bg-white/10 transition">เติมเงินก่อนซื้อ</button>
+                </div>
+
+                <p id="purchaseStatus" class="text-xs text-gray-400">เลือกแพ็กเกจ แล้วตรวจสอบว่ายอดเงินที่เติมพอหรือไม่</p>
+
+                <div id="purchaseMessageSection" class="hidden rounded-2xl border border-white/10 bg-black/25 p-3 space-y-3">
+                    <div>
+                        <label for="purchaseMessage" class="block text-xs text-gray-300 mb-1">ข้อความสำหรับสินค้า</label>
+                        <textarea id="purchaseMessage" rows="3" placeholder="พิมพ์ข้อความที่ต้องการแนบกับออเดอร์" class="w-full rounded-xl border border-white/10 bg-black/30 px-3 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-themepink/40"></textarea>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="savePurchaseMessage()" class="rounded-xl border border-themepink/30 bg-themepink/10 px-4 py-2 text-sm text-themepink hover:bg-themepink/20 transition">บันทึกข้อความ</button>
+                        <span id="purchaseMessageStatus" class="text-xs text-gray-400">ข้อความจะถูกเก็บไว้ในเครื่องนี้</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section: Order Steps -->
+        <div class="glass-card p-6 mb-6">
+            <h2 class="font-playfair text-xl text-white mb-4 flex items-center gap-2 border-b border-white/10 pb-2">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="text-themepink filter drop-shadow-[0_0_5px_rgba(255,102,178,0.5)]" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                    <path d="M9 14h6M9 10h6"></path>
+                </svg>
+                How to Order
+            </h2>
+            <ol class="space-y-3 text-sm font-light ml-4 list-decimal marker:text-themepink marker:font-medium">
+                <li class="pl-1 text-[#f0f0f0]">กรอกฟอร์ม เขียนรายละเอียดร้านค้า หรือพิมพ์ข้อมูลร้านค้าส่งมาได้เลย อยากใส่อะไร ใส่ได้ทุกอย่าง</li>
+                <li class="pl-1 text-[#f0f0f0]">ใส่ลิงก์ตัวอย่างงาน มาเลย หากมีโลโก้ให้แนบมาทีหลัง ใส่Google Driveได้</li>
+                <li class="pl-1 text-[#f0f0f0]">ชำระเงินราคาเริ่มต้น ส่งงานให้เช็ค แจ้งยอด ชำระเงินที่เหลือ หากมีรายละเอียดเกินกว่าราคาเริ่มต้น</li>
+                <li class="pl-1 text-[#f0f0f0] flex items-center gap-1">
+                    รอรับลิงก์ได้เลย 
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-themepink">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                </li>
+            </ol>
+            <div class="mt-5 p-3 bg-black/40 border border-themepink/30 rounded-lg shadow-inner">
+                <p class="text-xs text-themepink leading-relaxed">
+                    #หมายเหตุ เนื่องจากข้อมูลของแต่ละบุคคลมากน้อยไม่เท่ากัน จึงคิดราคาก่อนส่งงานไม่ได้ค่ะ เพื่อความเท่าเทียมทั้ง2ฝ่าย ขอสงวนสิทธิ์ในการเก็บค่าบริการแบบข้างต้นค่ะ
+                </p>
+            </div>
+        </div>
+
+        <!-- Section: Web Course -->
+        <div class="glass-card p-6 mb-6 relative overflow-hidden group">
+            <div class="absolute -bottom-8 -right-8 w-36 h-36 rounded-full border border-themepink/40 flex items-center justify-center opacity-30 group-hover:scale-110 transition duration-500 shadow-[0_0_30px_rgba(255,102,178,0.2)]">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#ff66b2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                    <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                </svg>
+            </div>
+            
+            <h2 class="font-playfair text-xl text-white mb-3 relative z-10 flex items-center gap-2" style="text-shadow: 0 0 8px rgba(255,102,178,0.5);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-themepink filter drop-shadow-[0_0_5px_rgba(255,102,178,0.5)]">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+                คอร์สสอนทำเว็บร้าน สไตล์พิ้งจู
+            </h2>
+            <div class="space-y-2 text-sm font-light relative z-10 text-[#f0f0f0]">
+                <p>สอนตั้งแต่ 0 → ทำเป็นเว็บใช้งานได้จริง</p>
+                <p>มีเทมเพลตมากกว่า 5 แบบ แทบจะจับมือสอน สามารถสอบถาม รีเควสต์ได้ตามใจ</p>
+                <div class="mt-3 flex items-center gap-3">
+                    <span class="text-lg font-medium text-themepink drop-shadow-[0_0_5px_rgba(255,102,178,0.5)]">ราคา 299.-</span>
+                    <span class="text-xs text-gray-500 line-through">จากปกติ 399.-</span>
+                </div>
+                <a href="https://drive.google.com/drive/folders/1fj024BhkgC1ctJeiwyZUG3USteSdzWzr" target="_blank" class="inline-flex items-center mt-3 px-4 py-2 bg-themepink/10 hover:bg-themepink/20 border border-themepink/30 rounded-lg text-xs text-white transition shadow-[0_0_10px_rgba(255,102,178,0.2)]">
+                    ดูรายละเอียดคอร์ส 
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1">
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Section: Goodnote Title -->
+        <div class="text-center mt-12 mb-6">
+            <h2 class="font-playfair text-3xl text-white tracking-widest uppercase" style="text-shadow: 0 0 15px rgba(255,255,255,0.4);">Goodnote</h2>
+            <div class="w-16 h-1 bg-themepink mx-auto mt-2 rounded-full shadow-[0_0_15px_rgba(255,102,178,0.9)]"></div>
+        </div>
+
+        <!-- Goodnote Packages -->
+        <div class="space-y-4 mb-10">
+            
+            <!-- Package 1 -->
+            <div class="glass-card p-5 relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-white/10 px-3 py-1 rounded-bl-xl text-[10px] tracking-wider font-playfair uppercase">Lifetime</div>
+                <h3 class="text-lg text-white font-medium mb-1 drop-shadow-md">รุ่นพิเศษ (ถาวร)</h3>
+                <p class="text-xs text-themepink mb-3 font-medium">ใช้ได้เฉพาะไอโอเอส</p>
+                <ul class="text-xs text-gray-300 space-y-2 mb-4 font-light">
+                    <li class="flex items-start gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-themepink shrink-0 mt-0.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <span>สมุดโน๊ต ไวท์บอร์ด และเอกสารข้อความไม่จำกัด</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-themepink shrink-0 mt-0.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <span>แชร์ลิ้งค์แบบสาธารณะ</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-themepink shrink-0 mt-0.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <span>การถอดเสียงแบบไม่จำกัด</span>
+                    </li>
+                </ul>
+                <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                    <div class="bg-black/30 p-2 rounded border border-white/10 hover:border-themepink/50 transition">
+                        <p class="text-gray-400 mb-1">เมลรวม</p>
+                        <p class="text-white font-medium">20.-</p>
+                    </div>
+                    <div class="bg-black/30 p-2 rounded border border-white/10 hover:border-themepink/50 transition">
+                        <p class="text-gray-400 mb-1">หาร 5 คน</p>
+                        <p class="text-white font-medium">149.-</p>
+                    </div>
+                    <div class="bg-themepink/10 p-2 rounded border border-themepink/50 shadow-[0_0_10px_rgba(255,102,178,0.2)]">
+                        <p class="text-themepink mb-1 font-medium">ส่วนตัว</p>
+                        <p class="text-white font-medium">490.-</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Package 2 -->
+            <div class="glass-card p-5 relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-white/10 px-3 py-1 rounded-bl-xl text-[10px] tracking-wider font-playfair uppercase">Yearly</div>
+                <h3 class="text-lg text-white font-medium mb-1 drop-shadow-md">Essential (รายปี)</h3>
+                <p class="text-xs text-gray-400 mb-3 leading-relaxed">ปลดล็อควิธีการจดบันทึก ความคิดของคุณไม่ว่าจะเป็น ข้อความ ลายมือ เสียง ไดอะแกรมและอื่นๆ</p>
+                <ul class="text-xs text-gray-300 space-y-2 mb-4 font-light">
+                    <li class="flex items-start gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-themepink shrink-0 mt-0.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <span>สมุดโน๊ต ไวท์บอร์ด และเอกสารข้อความไม่จำกัด</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-themepink shrink-0 mt-0.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <span>ใช้การค้นคว้าคณิตศาสตร์ด้วย ai (เครดิต ai 525 เครดิต)</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-themepink shrink-0 mt-0.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <span>การถอดเสียงแบบไม่จำกัด</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-themepink shrink-0 mt-0.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <span>เข้าถึงได้ แอนดรอยด์ วินโดว์ และเว็ป ระบบ iOS</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-themepink shrink-0 mt-0.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <span>แชร์ลิ้งค์แบบสาธารณะ</span>
+                    </li>
+                </ul>
+                <div class="grid grid-cols-3 gap-2 text-center text-xs mb-3">
+                    <div class="bg-black/30 p-2 rounded border border-white/10 hover:border-themepink/50 transition">
+                        <p class="text-gray-400 mb-1">เมลรวม</p>
+                        <p class="text-white font-medium">20.-</p>
+                    </div>
+                    <div class="bg-black/30 p-2 rounded border border-white/10 hover:border-themepink/50 transition">
+                        <p class="text-gray-400 mb-1">หาร 5 คน</p>
+                        <p class="text-white font-medium">79.-</p>
+                    </div>
+                    <div class="bg-themepink/10 p-2 rounded border border-themepink/50 shadow-[0_0_10px_rgba(255,102,178,0.2)]">
+                        <p class="text-themepink mb-1 font-medium">ส่วนตัว</p>
+                        <p class="text-white font-medium">229.-</p>
+                    </div>
+                </div>
+                <p class="text-[10px] text-gray-500 text-center">#ถ้าจะใช้งานในระบบแอนดรอยด์วินโดว์หรือเว็บแนะนำเป็นแบบส่วนตัวอย่างเดียวค่ะ</p>
+            </div>
+
+            <!-- Package 3 -->
+            <div class="glow-card p-5 relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-themepink text-white px-3 py-1 rounded-bl-xl text-[10px] tracking-wider font-playfair uppercase shadow-[0_0_15px_rgba(255,102,178,0.8)]">Premium</div>
+                <h3 class="text-lg text-white font-medium mb-1" style="text-shadow: 0 0 5px rgba(255,102,178,0.5);">Pro (รายปี)</h3>
+                <p class="text-xs text-gray-300 mb-3 leading-relaxed">เปลี่ยนการทำงานของคุณ ด้วยการสร้างสรรค์ด้วย ai และการทำงานร่วมกันขั้นสูง</p>
+                <ul class="text-xs text-gray-200 space-y-2 mb-4 font-light">
+                    <li class="text-[#ff99cc] font-medium flex items-start gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white shrink-0 mt-0.5 filter drop-shadow-[0_0_5px_rgba(255,255,255,0.8)]"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <span>มีครบทุกอย่างใน essential</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-themepink shrink-0 mt-0.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <span>ใช้การค้นคว้าคณิตศาสตร์ด้วย ai (เครดิต ai 525 เครดิต)</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-themepink shrink-0 mt-0.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <span>จดบันทึกโน๊ตอัตโนมัติและสรุปแบบเรียลไทม์</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-themepink shrink-0 mt-0.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <span>เชื่อมต่อ Google ปฏิทิน</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-themepink shrink-0 mt-0.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <span>แชร์ลิ้งค์แบบส่วนตัว และทำงานร่วมกันแบบเรียลไทม์</span>
+                    </li>
+                </ul>
+                <div class="grid grid-cols-3 gap-2 text-center text-xs mb-3">
+                    <div class="bg-black/40 p-2 rounded border border-white/10 hover:border-themepink/50 transition">
+                        <p class="text-gray-300 mb-1">เมลรวม</p>
+                        <p class="text-white font-medium">20.-</p>
+                    </div>
+                    <div class="bg-black/40 p-2 rounded border border-white/10 hover:border-themepink/50 transition">
+                        <p class="text-gray-300 mb-1">หาร 5 คน</p>
+                        <p class="text-white font-medium">149.-</p>
+                    </div>
+                    <div class="bg-themepink/20 p-2 rounded border border-themepink shadow-[0_0_15px_rgba(255,102,178,0.4)]">
+                        <p class="text-[#ff99cc] mb-1 font-medium drop-shadow-md">ส่วนตัว</p>
+                        <p class="text-white font-bold text-sm drop-shadow-md">490.-</p>
+                    </div>
+                </div>
+                <p class="text-[10px] text-gray-400 text-center">#ถ้าจะใช้งานในระบบแอนดรอยด์วินโดว์หรือเว็บแนะนำเป็นแบบส่วนตัวอย่างเดียวค่ะ</p>
+            </div>
+
+        </div>
+
+        <!-- Section: Contact -->
+        <div class="text-center mt-12 mb-10">
+            <h2 class="font-playfair text-xl text-white mb-6" style="text-shadow: 0 0 10px rgba(255,255,255,0.3);">Contact Us</h2>
+            
+            <div class="flex flex-col gap-3 max-w-[220px] mx-auto">
+                <a href="https://www.facebook.com/profile.php?id=61554192600355" target="_blank" class="flex items-center justify-center gap-2 border border-themepink/30 bg-[#120516] hover:border-themepink hover:bg-themepink/10 text-[#e2d5de] py-2.5 rounded-full text-sm transition duration-300 shadow-[0_0_10px_rgba(255,102,178,0.1)] hover:shadow-[0_0_20px_rgba(255,102,178,0.4)]">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                    Facebook
+                </a>
+                <a href="https://lin.ee/t0qYbAl" target="_blank" class="flex items-center justify-center gap-2 border border-themepink/30 bg-[#120516] hover:border-themepink hover:bg-themepink/10 text-[#e2d5de] py-2.5 rounded-full text-sm transition duration-300 shadow-[0_0_10px_rgba(255,102,178,0.1)] hover:shadow-[0_0_20px_rgba(255,102,178,0.4)]">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                    </svg>
+                    Line Official
+                </a>
+                <a href="https://www.instagram.com/pinkjulie.land" target="_blank" class="flex items-center justify-center gap-2 border border-themepink/30 bg-[#120516] hover:border-themepink hover:bg-themepink/10 text-[#e2d5de] py-2.5 rounded-full text-sm transition duration-300 shadow-[0_0_10px_rgba(255,102,178,0.1)] hover:shadow-[0_0_20px_rgba(255,102,178,0.4)]">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                    Instagram
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center pb-8 opacity-70 flex items-center justify-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-themepink"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <p class="text-xs font-light text-themepink">ขอบคุณที่ไว้วางใจ Pinkjulieland</p>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-themepink"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        </div>
+
+    </div>
+
+    <!-- PAYMENT MODAL -->
+    <div id="linksModal" class="fixed inset-0 modal-backdrop z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 px-4">
+        <div class="glass-card w-full max-w-md p-6 relative transform scale-95 transition-transform duration-300 border-themepink shadow-[0_0_40px_rgba(255,102,178,0.3)]" id="modalContent">
+            
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white hover:rotate-90 transition duration-300">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <h2 class="font-playfair text-2xl text-white mb-4 text-center flex items-center justify-center gap-2" style="text-shadow: 0 0 10px rgba(255,102,178,0.5);">
+                เติมเงิน / ตรวจสอบสลิป
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-themepink">
+                    <path d="M12 2v20"></path>
+                    <path d="M17 6H9.5a3.5 3.5 0 1 0 0 7H14a3.5 3.5 0 1 1 0 7H6"></path>
+                </svg>
+            </h2>
+
+            <div class="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
+                <div class="grid grid-cols-2 gap-2 mb-1 text-xs">
+                    <button type="button" onclick="document.getElementById('paymentInfoSection').scrollIntoView({behavior:'smooth'})" class="rounded-xl border border-themepink/30 bg-themepink/10 px-3 py-2 text-white hover:bg-themepink/20 transition">ดูบัญชี</button>
+                    <button type="button" onclick="document.getElementById('slipCheckSection').scrollIntoView({behavior:'smooth'})" class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-gray-200 hover:bg-white/10 transition">ตรวจสอบสลิป</button>
+                </div>
+
+                <div id="paymentInfoSection" class="glass-card p-4 rounded-2xl border border-themepink/20 bg-black/30 space-y-4">
+                    <div class="rounded-2xl overflow-hidden border border-white/10 bg-[#0c0610]">
+                        <img id="paymentQrImage" src="https://placehold.co/1200x700/120516/ff99cc?text=Payment+Image+%2F+QR" alt="รูปบัญชีและ QR Payment" class="w-full h-auto object-cover">
+                    </div>
+
+                    <div class="grid gap-3 sm:grid-cols-2">
+                        <div class="rounded-2xl border border-white/10 bg-black/30 p-3">
+                            <p class="text-xs text-gray-400 mb-1">ชื่อบัญชี</p>
+                            <p id="paymentAccountName" class="text-white font-medium">Pinkjulieland</p>
+                        </div>
+                        <div class="rounded-2xl border border-white/10 bg-black/30 p-3">
+                            <p class="text-xs text-gray-400 mb-1">เลขบัญชี</p>
+                            <p id="paymentAccountNumber" class="text-white font-medium tracking-wider">123-4-56789-0</p>
+                        </div>
+                        <div class="rounded-2xl border border-white/10 bg-black/30 p-3">
+                            <p class="text-xs text-gray-400 mb-1">ธนาคาร</p>
+                            <p id="paymentBankName" class="text-white font-medium">กรุงเทพ</p>
+                        </div>
+                        <div class="rounded-2xl border border-white/10 bg-black/30 p-3">
+                            <p class="text-xs text-gray-400 mb-1">พร้อมเพย์</p>
+                            <p id="paymentPromptPay" class="text-white font-medium">089-xxx-xxxx</p>
+                        </div>
+                    </div>
+
+                    <div class="rounded-2xl border border-white/10 bg-black/30 p-3 flex items-center justify-between gap-3">
+                        <div>
+                            <p class="text-xs text-gray-400">ยอดเงินคงเหลือในระบบ</p>
+                            <p id="walletBalanceDisplay" class="text-2xl font-bold text-white">0.-</p>
+                        </div>
+                        <span class="text-[11px] text-gray-400 text-right">ยอดนี้จะเพิ่มเมื่อกดตรวจสอบสลิปสำเร็จ</span>
+                    </div>
+
+                    <div class="rounded-2xl border border-themepink/20 bg-themepink/10 p-4 space-y-3">
+                        <div class="flex items-center justify-between gap-3">
+                            <div>
+                                <p class="text-xs text-gray-300">จำนวนเงินที่เติม</p>
+                                <p id="paymentAmountDisplay" class="text-2xl font-bold text-white">0.-</p>
+                            </div>
+                            <span class="rounded-full border border-themepink/30 bg-black/20 px-3 py-1 text-[11px] text-themepink">อัปเดตอัตโนมัติ</span>
+                        </div>
+                        <input id="paymentAmount" type="number" min="0" inputmode="numeric" placeholder="กรอกจำนวนเงิน" class="w-full rounded-xl border border-white/10 bg-black/30 px-3 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-themepink/40">
+                        <input id="paymentQuantity" type="number" min="1" value="1" inputmode="numeric" placeholder="จำนวนสินค้า" class="w-full rounded-xl border border-white/10 bg-black/30 px-3 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-themepink/40">
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <button type="button" onclick="setPaymentAmount(50)" class="rounded-full border border-white/10 px-3 py-1.5 text-gray-200 hover:bg-white/10">50</button>
+                            <button type="button" onclick="setPaymentAmount(100)" class="rounded-full border border-white/10 px-3 py-1.5 text-gray-200 hover:bg-white/10">100</button>
+                            <button type="button" onclick="setPaymentAmount(199)" class="rounded-full border border-white/10 px-3 py-1.5 text-gray-200 hover:bg-white/10">199</button>
+                            <button type="button" onclick="setPaymentAmount(299)" class="rounded-full border border-white/10 px-3 py-1.5 text-gray-200 hover:bg-white/10">299</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="slipCheckSection" class="glass-card p-4 rounded-2xl border border-white/10 bg-black/25 space-y-3">
+                    <div class="flex items-center justify-between gap-3">
+                        <h3 class="text-white font-medium">เมนูตรวจสอบสลิป</h3>
+                        <span class="text-[11px] text-gray-400">ตรวจสอบอัตโนมัติแบบร้านค้า</span>
+                    </div>
+                    <div class="grid gap-3 sm:grid-cols-2">
+                        <div>
+                            <label for="slipAmount" class="block text-xs text-gray-300 mb-1">จำนวนเงินในสลิป</label>
+                            <input id="slipAmount" type="number" min="0" inputmode="numeric" placeholder="0" class="w-full rounded-xl border border-white/10 bg-black/30 px-3 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-themepink/40">
+                        </div>
+                        <div>
+                            <label for="slipFile" class="block text-xs text-gray-300 mb-1">อัปโหลดสลิป</label>
+                            <input id="slipFile" type="file" accept="image/*" class="w-full rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-gray-200 file:mr-3 file:rounded-lg file:border-0 file:bg-themepink file:px-3 file:py-1.5 file:text-white">
+                        </div>
+                    </div>
+                    <div class="grid gap-3 sm:grid-cols-2">
+                        <div>
+                            <label for="slipName" class="block text-xs text-gray-300 mb-1">ชื่อผู้โอน</label>
+                            <input id="slipName" type="text" placeholder="ชื่อบนสลิป" class="w-full rounded-xl border border-white/10 bg-black/30 px-3 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-themepink/40">
+                        </div>
+                        <div>
+                            <label for="slipRef" class="block text-xs text-gray-300 mb-1">เลขอ้างอิง</label>
+                            <input id="slipRef" type="text" placeholder="Ref / Transaction ID" class="w-full rounded-xl border border-white/10 bg-black/30 px-3 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-themepink/40">
+                        </div>
+                    </div>
+                    <button type="button" onclick="checkSlip()" class="w-full rounded-xl bg-themepink px-4 py-2.5 text-sm font-medium text-white shadow-[0_0_20px_rgba(255,102,178,0.25)] hover:bg-[#ff4fa6] transition">ตรวจสอบสลิป</button>
+                    <p id="slipStatus" class="text-xs text-gray-400">กรอกจำนวนเงินและอัปโหลดสลิปเพื่อส่งตรวจสอบ</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="authModal" class="fixed inset-0 modal-backdrop z-[60] flex items-center justify-center hidden opacity-0 transition-opacity duration-300 px-4">
+        <div class="glass-card w-full max-w-md p-5 relative transform scale-95 transition-transform duration-300 border-themepink shadow-[0_0_40px_rgba(255,102,178,0.3)]" id="authModalContent">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white hover:rotate-90 transition duration-300">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <div class="flex gap-2 mb-5 pr-8">
+                <button onclick="switchAuthTab('login')" data-auth-tab="login" class="auth-tab-btn flex-1 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-gray-200">เข้าสู่ระบบ</button>
+                <button onclick="switchAuthTab('register')" data-auth-tab="register" class="auth-tab-btn flex-1 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-gray-200">สมัครสมาชิก</button>
+                <button onclick="switchAuthTab('admin')" data-auth-tab="admin" class="auth-tab-btn flex-1 rounded-xl border border-themepink/30 bg-themepink/10 px-3 py-2 text-xs text-themepink">Admin</button>
+            </div>
+
+            <div class="mb-4 text-center">
+                <h2 id="authTitle" class="font-playfair text-2xl text-white">เข้าสู่ระบบ</h2>
+                <p id="authSubtitle" class="text-xs text-gray-300 mt-1">เข้าใช้งานด้วยชื่อที่สมัครและรหัสผ่าน</p>
+            </div>
+
+            <div id="authMessage" class="hidden mb-4 rounded-xl border border-themepink/30 bg-themepink/10 px-3 py-2 text-xs text-[#ffd7ea]"></div>
+
+            <form id="authForm" class="space-y-3">
+                <div>
+                    <label class="block text-xs text-gray-300 mb-1" for="authEmail">ชื่อที่สมัคร</label>
+                    <input id="authEmail" type="text" required class="w-full rounded-xl border border-white/10 bg-black/30 px-3 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-themepink/40" placeholder="ชื่อผู้ใช้">
+                </div>
+                <div id="passwordRow">
+                    <label class="block text-xs text-gray-300 mb-1" for="authPassword">รหัสผ่าน</label>
+                    <input id="authPassword" type="password" class="w-full rounded-xl border border-white/10 bg-black/30 px-3 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-themepink/40" placeholder="••••••••">
+                </div>
+                <div id="displayNameRow">
+                    <label class="block text-xs text-gray-300 mb-1" for="authName">อีเมลสำหรับติดต่อ</label>
+                    <input id="authName" type="email" class="w-full rounded-xl border border-white/10 bg-black/30 px-3 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-themepink/40" placeholder="name@example.com">
+                </div>
+
+                <button type="submit" class="w-full rounded-xl bg-themepink px-4 py-2.5 text-sm font-medium text-white shadow-[0_0_20px_rgba(255,102,178,0.25)] hover:bg-[#ff4fa6] transition">ดำเนินการ</button>
+            </form>
+
+            <div id="adminPanel" class="hidden mt-5 space-y-4 border-t border-white/10 pt-5">
+                <div class="rounded-2xl border border-themepink/20 bg-black/30 p-4">
+                    <div class="flex items-center justify-between gap-3 mb-3">
+                        <div>
+                            <h3 class="text-white font-medium">หลังบ้าน Admin</h3>
+                            <p class="text-xs text-gray-400">แก้ไขรายการ Services แล้วกดบันทึก ระบบจะจำไว้ในเครื่องนี้</p>
+                        </div>
+                        <button type="button" onclick="logoutAdmin()" class="text-xs rounded-full border border-white/10 px-3 py-1.5 text-gray-200 hover:bg-white/10">ออกจากระบบ</button>
+                    </div>
+                    <div class="space-y-3">
+                        <input id="serviceInput" type="text" class="w-full rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-themepink/40" placeholder="เพิ่มข้อความบริการใหม่">
+                        <button type="button" onclick="addServiceItem()" class="w-full rounded-xl border border-themepink/30 bg-themepink/10 px-4 py-2 text-sm text-themepink hover:bg-themepink/20 transition">เพิ่มรายการ</button>
+                    </div>
+                    <div id="adminServiceEditor" class="mt-4 space-y-2"></div>
+                    <div id="adminDashboardEditor" class="mt-4 space-y-2"></div>
+                    <p class="mt-3 text-[11px] text-gray-500">หมายเหตุ: ตอนนี้เป็นระบบหลังบ้านแบบหน้าเดียว ใช้สำหรับให้แก้ข้อมูลได้เองบนเครื่องหรือเบราว์เซอร์เดียวกันก่อน</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script for Modal Functionality -->
+    <script>
+        const modal = document.getElementById('linksModal');
+        const modalContent = document.getElementById('modalContent');
+        const authModal = document.getElementById('authModal');
+        const authModalContent = document.getElementById('authModalContent');
+        const authForm = document.getElementById('authForm');
+        const authTitle = document.getElementById('authTitle');
+        const authSubtitle = document.getElementById('authSubtitle');
+        const authMessage = document.getElementById('authMessage');
+        const authEmail = document.getElementById('authEmail');
+        const authPassword = document.getElementById('authPassword');
+        const authName = document.getElementById('authName');
+        const passwordRow = document.getElementById('passwordRow');
+        const displayNameRow = document.getElementById('displayNameRow');
+        const adminPanel = document.getElementById('adminPanel');
+        const adminServiceEditor = document.getElementById('adminServiceEditor');
+        const serviceInput = document.getElementById('serviceInput');
+        const servicesList = document.getElementById('servicesList');
+        const paymentAmountInput = document.getElementById('paymentAmount');
+        const paymentAmountDisplay = document.getElementById('paymentAmountDisplay');
+        const paymentQuantityInput = document.getElementById('paymentQuantity');
+        const slipAmountInput = document.getElementById('slipAmount');
+        const slipFileInput = document.getElementById('slipFile');
+        const slipNameInput = document.getElementById('slipName');
+        const slipRefInput = document.getElementById('slipRef');
+        const slipStatus = document.getElementById('slipStatus');
+        const statTotalUsers = document.getElementById('statTotalUsers');
+        const statSoldProducts = document.getElementById('statSoldProducts');
+        const statWebsiteVisits = document.getElementById('statWebsiteVisits');
+        const statSoldOrders = document.getElementById('statSoldOrders');
+        const backgroundLayer = document.getElementById('backgroundLayer');
+        const heroTitle = document.getElementById('heroTitle');
+        const heroWelcomeText = document.getElementById('heroWelcomeText');
+        const heroDescription = document.getElementById('heroDescription');
+        const contactLinksGrid = document.getElementById('contactLinksGrid');
+        const netflixPlansGrid = document.getElementById('netflixPlansGrid');
+        const walletBalanceDisplay = document.getElementById('walletBalanceDisplay');
+        const selectedNetflixName = document.getElementById('selectedNetflixName');
+        const selectedNetflixPrice = document.getElementById('selectedNetflixPrice');
+        const purchaseStatus = document.getElementById('purchaseStatus');
+        const purchaseMessageSection = document.getElementById('purchaseMessageSection');
+        const purchaseMessageInput = document.getElementById('purchaseMessage');
+        const purchaseMessageStatus = document.getElementById('purchaseMessageStatus');
+        const paymentQrImage = document.getElementById('paymentQrImage');
+        const paymentAccountName = document.getElementById('paymentAccountName');
+        const paymentAccountNumber = document.getElementById('paymentAccountNumber');
+        const paymentBankName = document.getElementById('paymentBankName');
+        const paymentPromptPay = document.getElementById('paymentPromptPay');
+        const adminDashboardEditor = document.getElementById('adminDashboardEditor');
+
+        const ADMIN_EMAILS = ['sunjiomg.op@gmail.com'];
+        const usersStorageKey = 'pinkjulieland-users';
+        const visitsStorageKey = 'jialie-website-visits';
+        const soldProductsStorageKey = 'jialie-sold-products';
+        const soldOrdersStorageKey = 'jialie-sold-orders';
+        const walletBalanceStorageKey = 'jialie-wallet-balance';
+        const purchaseMessageStorageKey = 'jialie-purchase-message';
+        const siteConfigStorageKey = 'jialie-site-config';
+        const defaultServices = [
+            'เว็บเรทราคาแอปพรีเมียม',
+            'เว็บเรทราคารับเติมเกมส์',
+            'เว็บเรทราคารับทำป้าย',
+            'เว็บอื่น ๆ สอบถามเพิ่มเติมได้ค่ะ'
+        ];
+
+        const defaultSiteConfig = {
+            heroTitle: 'Jialie',
+            heroWelcomeText: 'Welcome to my shop',
+            heroDescription: 'Website จำหน่ายแอพพรีเมี่ยม 24hr\nสำหรับตัวแทนและลูกค้าทั่วไป',
+            backgroundStart: '#1a0524',
+            backgroundEnd: '#05010a',
+            payment: {
+                accountName: 'Jialie Shop',
+                accountNumber: '123-4-56789-0',
+                bankName: 'กรุงเทพ',
+                promptPay: '089-xxx-xxxx',
+                imageUrl: 'https://placehold.co/1200x700/120516/ff99cc?text=Payment+Image+%2F+QR',
+            },
+            contacts: [
+                { label: 'รายการสินค้า', url: 'https://www.facebook.com/profile.php?id=61554192600355', description: 'แอพพรีเมี่ยมทั่วไป' },
+                { label: 'เติมเงิน', url: 'https://lin.ee/t0qYbAl', description: 'bank & wallet' },
+                { label: 'ติดต่อสอบถาม / แก้ไขปัญหา', url: 'https://www.instagram.com/pinkjulie.land', description: 'เริ่มตอบตามเวลาเปิด-ปิดร้าน' },
+                { label: 'กลุ่มตัวแทน', url: 'mailto:pinkjulieland@gmail.com', description: 'ตั้งชื่อยูสตัวเองด้วยนะคะ' },
+            ],
+            plans: [
+                { key: 'netflix-1-day', name: 'Netflix 1 Day', price: 29, description: 'ใช้งาน 1 วัน เหมาะสำหรับทดลองใช้', imageUrl: 'https://placehold.co/800x500/15061d/ff99cc?text=Netflix+1+Day' },
+                { key: 'netflix-7-day', name: 'Netflix 7 Day', price: 79, description: 'ใช้งาน 7 วัน คุ้มสำหรับระยะสั้น', imageUrl: 'https://placehold.co/800x500/15061d/ff99cc?text=Netflix+7+Day' },
+                { key: 'netflix-15-day', name: 'Netflix 15 Day', price: 149, description: 'ใช้งาน 15 วัน เหมาะกับลูกค้าประจำ', imageUrl: 'https://placehold.co/800x500/15061d/ff99cc?text=Netflix+15+Day' },
+                { key: 'netflix-30-day', name: 'Netflix 30 Day', price: 229, description: 'ใช้งาน 30 วัน สำหรับใช้งานเต็มรอบ', imageUrl: 'https://placehold.co/800x500/15061d/ff99cc?text=Netflix+30+Day' },
+            ],
+        };
+
+        let authMode = 'login';
+        let servicesData = JSON.parse(localStorage.getItem('pinkjulieland-services') || 'null') || [...defaultServices];
+        let usersData = JSON.parse(localStorage.getItem(usersStorageKey) || 'null') || [];
+        let currentUser = JSON.parse(localStorage.getItem('pinkjulieland-user') || 'null');
+        let websiteVisits = Number(localStorage.getItem(visitsStorageKey) || 0);
+        let soldProducts = Number(localStorage.getItem(soldProductsStorageKey) || 0);
+        let soldOrders = Number(localStorage.getItem(soldOrdersStorageKey) || 0);
+        let walletBalance = Number(localStorage.getItem(walletBalanceStorageKey) || 0);
+        let siteConfig = JSON.parse(localStorage.getItem(siteConfigStorageKey) || 'null') || structuredClone(defaultSiteConfig);
+        let selectedNetflixPlanKey = siteConfig.plans?.[0]?.key || 'netflix-1-day';
+
+        function normalizeUserKey(value) {
+            return value.trim().toLowerCase();
+        }
+
+        function renderServices() {
+            if (!servicesList) return;
+            servicesList.innerHTML = servicesData.map((item) => `
+                <li class="flex items-start gap-2"><span class="text-themepink mt-0.5">•</span> ${item}</li>
+            `).join('');
+        }
+
+        function saveSiteConfig() {
+            localStorage.setItem(siteConfigStorageKey, JSON.stringify(siteConfig));
+        }
+
+        function renderHeroContent() {
+            if (heroTitle) heroTitle.textContent = siteConfig.heroTitle || '';
+            if (heroWelcomeText) heroWelcomeText.textContent = siteConfig.heroWelcomeText || '';
+            if (heroDescription) heroDescription.innerHTML = (siteConfig.heroDescription || '').replace(/\n/g, '<br>');
+        }
+
+        function renderBackgroundTheme() {
+            if (!backgroundLayer) return;
+            backgroundLayer.style.background = `radial-gradient(circle at top right, ${siteConfig.backgroundStart || '#1a0524'} 0%, ${siteConfig.backgroundEnd || '#05010a'} 70%)`;
+        }
+
+        function renderContactLinks() {
+            if (!contactLinksGrid) return;
+            contactLinksGrid.innerHTML = siteConfig.contacts.map((contact, index) => `
+                <a href="${contact.url}" target="_blank" class="glass-card p-3 rounded-2xl bg-white/5 hover:bg-white/10 border-white/10 flex flex-col gap-1">
+                    <span class="text-themepink font-medium">${contact.label}</span>
+                    <span class="text-xs text-gray-300">${contact.description}</span>
+                </a>
+            `).join('');
+        }
+
+        function renderNetflixPlans() {
+            if (!netflixPlansGrid) return;
+            netflixPlansGrid.innerHTML = siteConfig.plans.map((plan) => `
+                <button type="button" data-netflix-card="${plan.key}" onclick="selectNetflixPlan('${plan.key}')" class="text-left rounded-2xl border border-white/10 bg-black/25 p-4 transition hover:border-themepink/50 hover:bg-themepink/10 overflow-hidden">
+                    <div class="rounded-xl overflow-hidden border border-white/10 mb-3">
+                        <img src="${plan.imageUrl}" alt="${plan.name}" class="w-full h-28 object-cover">
+                    </div>
+                    <div class="flex items-center justify-between gap-3 mb-2">
+                        <h3 class="font-playfair text-lg text-white">${plan.name}</h3>
+                        <span class="text-themepink font-medium">${formatAmount(plan.price)}</span>
+                    </div>
+                    <p class="text-xs text-gray-300">${plan.description}</p>
+                </button>
+            `).join('');
+            renderNetflixSelection();
+        }
+
+        function renderPaymentInfo() {
+            if (paymentQrImage) paymentQrImage.src = siteConfig.payment.imageUrl || paymentQrImage.src;
+            if (paymentAccountName) paymentAccountName.textContent = siteConfig.payment.accountName || '';
+            if (paymentAccountNumber) paymentAccountNumber.textContent = siteConfig.payment.accountNumber || '';
+            if (paymentBankName) paymentBankName.textContent = siteConfig.payment.bankName || '';
+            if (paymentPromptPay) paymentPromptPay.textContent = siteConfig.payment.promptPay || '';
+        }
+
+        function applySiteConfig() {
+            renderHeroContent();
+            renderBackgroundTheme();
+            renderContactLinks();
+            renderNetflixPlans();
+            renderPaymentInfo();
+        }
+
+        function updateSiteTextField(field, value) {
+            siteConfig[field] = value;
+            saveSiteConfig();
+            applySiteConfig();
+        }
+
+        function updateThemeField(field, value) {
+            siteConfig[field] = value;
+            saveSiteConfig();
+            renderBackgroundTheme();
+        }
+
+        function updatePaymentField(field, value) {
+            siteConfig.payment[field] = value;
+            saveSiteConfig();
+            renderPaymentInfo();
+        }
+
+        function updateContactField(index, field, value) {
+            if (!siteConfig.contacts[index]) return;
+            siteConfig.contacts[index][field] = value;
+            saveSiteConfig();
+            renderContactLinks();
+        }
+
+        function updatePlanField(index, field, value) {
+            if (!siteConfig.plans[index]) return;
+            siteConfig.plans[index][field] = field === 'price' ? Number(value) || 0 : value;
+            saveSiteConfig();
+            renderNetflixPlans();
+        }
+
+        function saveStats() {
+            localStorage.setItem(visitsStorageKey, String(websiteVisits));
+            localStorage.setItem(soldProductsStorageKey, String(soldProducts));
+            localStorage.setItem(soldOrdersStorageKey, String(soldOrders));
+        }
+
+        function renderStats() {
+            if (statTotalUsers) statTotalUsers.textContent = String(usersData.length);
+            if (statSoldProducts) statSoldProducts.textContent = String(soldProducts);
+            if (statWebsiteVisits) statWebsiteVisits.textContent = String(websiteVisits);
+            if (statSoldOrders) statSoldOrders.textContent = String(soldOrders);
+        }
+
+        function saveWalletBalance() {
+            localStorage.setItem(walletBalanceStorageKey, String(walletBalance));
+        }
+
+        function renderWalletBalance() {
+            if (walletBalanceDisplay) {
+                walletBalanceDisplay.textContent = formatAmount(walletBalance);
+            }
+        }
+
+        function getSelectedNetflixPlan() {
+            return siteConfig.plans.find((plan) => plan.key === selectedNetflixPlanKey) || siteConfig.plans[0];
+        }
+
+        function renderNetflixSelection() {
+            const plan = getSelectedNetflixPlan();
+            if (selectedNetflixName) selectedNetflixName.textContent = plan.name;
+            if (selectedNetflixPrice) selectedNetflixPrice.textContent = formatAmount(plan.price);
+
+            document.querySelectorAll('[data-netflix-card]').forEach((button) => {
+                const active = button.dataset.netflixCard === selectedNetflixPlanKey;
+                button.classList.toggle('border-themepink/60', active);
+                button.classList.toggle('bg-themepink/10', active);
+                button.classList.toggle('shadow-[0_0_18px_rgba(255,102,178,0.2)]', active);
+            });
+        }
+
+        function selectNetflixPlan(planKey) {
+            selectedNetflixPlanKey = planKey;
+            renderNetflixSelection();
+            if (purchaseStatus) {
+                purchaseStatus.textContent = `เลือก ${getSelectedNetflixPlan().name} แล้ว ตรวจยอดเงินก่อนกดซื้อ`;
+            }
+        }
+
+        function buySelectedNetflixPlan() {
+            const plan = getSelectedNetflixPlan();
+            if (walletBalance < plan.price) {
+                if (purchaseStatus) {
+                    purchaseStatus.textContent = `ยอดเงินไม่พอ ต้องมีอย่างน้อย ${formatAmount(plan.price)} ตอนนี้มี ${formatAmount(walletBalance)}`;
+                }
+                return;
+            }
+
+            walletBalance -= plan.price;
+            soldProducts += 1;
+            soldOrders += 1;
+            saveWalletBalance();
+            saveStats();
+            renderWalletBalance();
+            renderStats();
+
+            if (purchaseStatus) {
+                purchaseStatus.textContent = `ซื้อ ${plan.name} สำเร็จ เหลือยอดเงิน ${formatAmount(walletBalance)}`;
+            }
+
+            if (purchaseMessageSection) {
+                purchaseMessageSection.classList.remove('hidden');
+            }
+            if (purchaseMessageInput) {
+                purchaseMessageInput.focus();
+            }
+        }
+
+        function savePurchaseMessage() {
+            const message = purchaseMessageInput?.value.trim() || '';
+            localStorage.setItem(purchaseMessageStorageKey, message);
+            if (purchaseMessageStatus) {
+                purchaseMessageStatus.textContent = message ? 'บันทึกข้อความแล้ว' : 'ล้างข้อความเรียบร้อย';
+            }
+        }
+
+        function loadPurchaseMessage() {
+            const savedMessage = localStorage.getItem(purchaseMessageStorageKey) || '';
+            if (purchaseMessageInput) {
+                purchaseMessageInput.value = savedMessage;
+            }
+        }
+
+        function showPurchaseMessageAfterBuy() {
+            if (purchaseMessageSection) {
+                purchaseMessageSection.classList.remove('hidden');
+            }
+        }
+
+        function showPurchasePanelStatus(message) {
+            if (purchaseStatus) {
+                purchaseStatus.textContent = message;
+            }
+        }
+
+        function incrementWebsiteVisits() {
+            websiteVisits += 1;
+            saveStats();
+            renderStats();
+        }
+
+        function registerSale(quantity) {
+            const saleQuantity = Math.max(1, Number(quantity) || 1);
+            soldProducts += saleQuantity;
+            soldOrders += 1;
+            saveStats();
+            renderStats();
+        }
+
+        function formatAmount(value) {
+            const numericValue = Number(value) || 0;
+            return `${numericValue.toLocaleString('th-TH')}.-`;
+        }
+
+        function updatePaymentAmount() {
+            if (!paymentAmountDisplay || !paymentAmountInput) return;
+            paymentAmountDisplay.textContent = formatAmount(paymentAmountInput.value);
+            if (slipAmountInput && !slipAmountInput.value) {
+                slipAmountInput.value = paymentAmountInput.value;
+            }
+        }
+
+        function setPaymentAmount(amount) {
+            if (!paymentAmountInput) return;
+            paymentAmountInput.value = amount;
+            updatePaymentAmount();
+            if (slipStatus) {
+                slipStatus.textContent = `ตั้งยอดโอนเป็น ${formatAmount(amount)} แล้ว`;
+            }
+        }
+
+        function checkSlip() {
+            const amount = Number(slipAmountInput?.value || 0);
+            const hasFile = Boolean(slipFileInput?.files?.length);
+            const slipName = slipNameInput?.value.trim() || 'ไม่ระบุชื่อ';
+            const slipRef = slipRefInput?.value.trim() || 'ไม่ระบุเลขอ้างอิง';
+
+            if (!amount || !hasFile) {
+                if (slipStatus) {
+                    slipStatus.textContent = 'กรุณากรอกจำนวนเงินและอัปโหลดรูปสลิปก่อนตรวจสอบ';
+                }
+                return;
+            }
+
+            walletBalance += amount;
+            saveWalletBalance();
+            renderWalletBalance();
+            if (slipStatus) {
+                slipStatus.textContent = `ตรวจสอบรายการเรียบร้อย: ${formatAmount(amount)} | ${slipName} | ${slipRef} | เติมเข้า wallet แล้ว`;
+            }
+        }
+
+        function saveServices() {
+            localStorage.setItem('pinkjulieland-services', JSON.stringify(servicesData));
+        }
+
+        function saveUsers() {
+            localStorage.setItem(usersStorageKey, JSON.stringify(usersData));
+        }
+
+        function findUserByName(name) {
+            const searchKey = normalizeUserKey(name);
+            return usersData.find((user) => normalizeUserKey(user.name) === searchKey);
+        }
+
+        function setAuthMessage(message) {
+            authMessage.textContent = message;
+            authMessage.classList.remove('hidden');
+        }
+
+        function clearAuthMessage() {
+            authMessage.textContent = '';
+            authMessage.classList.add('hidden');
+        }
+
+        function updateAuthTabUI() {
+            document.querySelectorAll('[data-auth-tab]').forEach((button) => {
+                const active = button.dataset.authTab === authMode;
+                button.className = active
+                    ? 'auth-tab-btn flex-1 rounded-xl border border-themepink/30 bg-themepink/10 px-3 py-2 text-xs text-themepink'
+                    : 'auth-tab-btn flex-1 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-gray-200';
+            });
+
+            if (authMode === 'login') {
+                authTitle.textContent = 'เข้าสู่ระบบ';
+                authSubtitle.textContent = 'เข้าสู่ระบบด้วยชื่อที่สมัครและรหัสผ่าน';
+                authEmail.previousElementSibling.textContent = 'ชื่อที่สมัคร';
+                authEmail.placeholder = 'ชื่อผู้ใช้';
+                passwordRow.classList.remove('hidden');
+                displayNameRow.classList.add('hidden');
+            } else if (authMode === 'register') {
+                authTitle.textContent = 'สมัครสมาชิก';
+                authSubtitle.textContent = 'สมัครเพื่อให้ระบบจำชื่อผู้ใช้และรหัสผ่านไว้เข้าสู่ระบบภายหลัง';
+                authEmail.previousElementSibling.textContent = 'ชื่อที่สมัคร';
+                authEmail.placeholder = 'ชื่อผู้ใช้';
+                authPassword.placeholder = 'ตั้งรหัสผ่าน';
+                passwordRow.classList.remove('hidden');
+                displayNameRow.classList.remove('hidden');
+            } else {
+                authTitle.textContent = 'Admin หลังบ้าน';
+                authSubtitle.textContent = 'ผู้ดูแลระบบเข้าสู่หลังบ้านด้วยอีเมลที่อนุญาตเท่านั้น';
+                authEmail.previousElementSibling.textContent = 'อีเมล';
+                authEmail.placeholder = 'admin@example.com';
+                passwordRow.classList.add('hidden');
+                displayNameRow.classList.add('hidden');
+            }
+        }
+
+        function renderAdminEditor() {
+            if (adminDashboardEditor) {
+                adminDashboardEditor.innerHTML = `
+                    <div class="rounded-2xl border border-white/10 bg-black/20 p-3 space-y-2">
+                        <p class="text-xs text-themepink">ข้อความหลักของหน้า</p>
+                        <input id="adminHeroTitle" type="text" value="${siteConfig.heroTitle}" class="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-white" placeholder="ชื่อหน้า">
+                        <input id="adminHeroWelcomeText" type="text" value="${siteConfig.heroWelcomeText}" class="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-white" placeholder="ข้อความต้อนรับ">
+                        <textarea id="adminHeroDescription" rows="3" class="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-white" placeholder="คำอธิบาย">${siteConfig.heroDescription}</textarea>
+                        <button type="button" onclick="saveHeroFromAdmin()" class="rounded-lg border border-themepink/30 px-3 py-2 text-xs text-themepink hover:bg-themepink/10">บันทึกข้อความหน้า</button>
+                    </div>
+
+                    <div class="rounded-2xl border border-white/10 bg-black/20 p-3 space-y-2">
+                        <p class="text-xs text-themepink">พื้นหลัง</p>
+                        <input id="adminThemeStart" type="text" value="${siteConfig.backgroundStart}" class="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-white" placeholder="#1a0524">
+                        <input id="adminThemeEnd" type="text" value="${siteConfig.backgroundEnd}" class="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-white" placeholder="#05010a">
+                        <button type="button" onclick="saveThemeFromAdmin()" class="rounded-lg border border-themepink/30 px-3 py-2 text-xs text-themepink hover:bg-themepink/10">บันทึกพื้นหลัง</button>
+                    </div>
+
+                    <div class="rounded-2xl border border-white/10 bg-black/20 p-3 space-y-2">
+                        <p class="text-xs text-themepink">ข้อมูลรับเงิน</p>
+                        <input id="adminPaymentAccountName" type="text" value="${siteConfig.payment.accountName}" class="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-white" placeholder="ชื่อบัญชี">
+                        <input id="adminPaymentAccountNumber" type="text" value="${siteConfig.payment.accountNumber}" class="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-white" placeholder="เลขบัญชี">
+                        <input id="adminPaymentBankName" type="text" value="${siteConfig.payment.bankName}" class="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-white" placeholder="ธนาคาร">
+                        <input id="adminPaymentPromptPay" type="text" value="${siteConfig.payment.promptPay}" class="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-white" placeholder="พร้อมเพย์">
+                        <input id="adminPaymentImageUrl" type="text" value="${siteConfig.payment.imageUrl}" class="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-white" placeholder="ลิงก์รูป QR / บัญชี">
+                        <button type="button" onclick="savePaymentFromAdmin()" class="rounded-lg border border-themepink/30 px-3 py-2 text-xs text-themepink hover:bg-themepink/10">บันทึกข้อมูลรับเงิน</button>
+                    </div>
+
+                    <div class="rounded-2xl border border-white/10 bg-black/20 p-3 space-y-2">
+                        <p class="text-xs text-themepink">เมล Admin ที่อนุญาต</p>
+                        <div class="rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-white break-all">Sunjiomg.op@gmail.com</div>
+                        <p class="text-[11px] text-gray-500">ระบบจะรับสิทธิ์เฉพาะอีเมลนี้เท่านั้น</p>
+                    </div>
+
+                    <div class="rounded-2xl border border-white/10 bg-black/20 p-3 space-y-2">
+                        <p class="text-xs text-themepink">ข้อความบริการ</p>
+                        <input id="serviceInput" type="text" class="w-full rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-themepink/40" placeholder="เพิ่มข้อความบริการใหม่">
+                        <button type="button" onclick="addServiceItem()" class="w-full rounded-xl border border-themepink/30 bg-themepink/10 px-4 py-2 text-sm text-themepink hover:bg-themepink/20 transition">เพิ่มรายการ</button>
+                        <div id="adminServiceEditor" class="mt-2 space-y-2"></div>
+                    </div>
+
+                    <div class="rounded-2xl border border-white/10 bg-black/20 p-3 space-y-2">
+                        <p class="text-xs text-themepink">เมนูติดต่อ 4 ช่อง</p>
+                        <div id="adminContactEditor" class="space-y-2"></div>
+                    </div>
+
+                    <div class="rounded-2xl border border-white/10 bg-black/20 p-3 space-y-2">
+                        <p class="text-xs text-themepink">แพ็กเกจ Netflix</p>
+                        <div id="adminPlanEditor" class="space-y-2"></div>
+                    </div>
+                `;
+            }
+
+            renderServices();
+            if (adminServiceEditor) {
+                adminServiceEditor.innerHTML = servicesData.map((service, index) => `
+                    <div class="flex items-center gap-2 rounded-xl border border-white/10 bg-black/20 p-2">
+                        <input type="text" value="${service}" data-service-index="${index}" class="min-w-0 flex-1 rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-themepink/40">
+                        <button type="button" onclick="updateServiceItem(${index})" class="rounded-lg border border-themepink/30 px-3 py-2 text-xs text-themepink hover:bg-themepink/10">บันทึก</button>
+                        <button type="button" onclick="removeServiceItem(${index})" class="rounded-lg border border-red-400/30 px-3 py-2 text-xs text-red-300 hover:bg-red-400/10">ลบ</button>
+                    </div>
+                `).join('');
+            }
+            renderAdminContactEditor();
+            renderAdminPlanEditor();
+        }
+
+        function renderAdminContactEditor() {
+            const container = document.getElementById('adminContactEditor');
+            if (!container) return;
+            container.innerHTML = siteConfig.contacts.map((contact, index) => `
+                <div class="rounded-xl border border-white/10 bg-black/20 p-3 space-y-2">
+                    <p class="text-[11px] text-gray-400">ช่อง ${index + 1}</p>
+                    <input id="adminContactLabel${index}" type="text" value="${contact.label}" class="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-white" placeholder="ชื่อช่องทาง">
+                    <input id="adminContactUrl${index}" type="text" value="${contact.url}" class="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-white" placeholder="ลิงก์">
+                    <input id="adminContactDescription${index}" type="text" value="${contact.description}" class="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-white" placeholder="คำอธิบาย">
+                    <button type="button" onclick="saveContactFromAdmin(${index})" class="rounded-lg border border-themepink/30 px-3 py-2 text-xs text-themepink hover:bg-themepink/10">บันทึกช่องนี้</button>
+                </div>
+            `).join('');
+        }
+
+        function renderAdminPlanEditor() {
+            const container = document.getElementById('adminPlanEditor');
+            if (!container) return;
+            container.innerHTML = siteConfig.plans.map((plan, index) => `
+                <div class="rounded-xl border border-white/10 bg-black/20 p-3 space-y-2">
+                    <p class="text-[11px] text-gray-400">แพ็กเกจ ${index + 1}</p>
+                    <input id="adminPlanName${index}" type="text" value="${plan.name}" class="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-white" placeholder="ชื่อแพ็กเกจ">
+                    <input id="adminPlanPrice${index}" type="number" value="${plan.price}" class="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-white" placeholder="ราคา">
+                    <input id="adminPlanDescription${index}" type="text" value="${plan.description}" class="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-white" placeholder="คำอธิบาย">
+                    <input id="adminPlanImage${index}" type="text" value="${plan.imageUrl}" class="w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-white" placeholder="ลิงก์รูปภาพ">
+                    <button type="button" onclick="savePlanFromAdmin(${index})" class="rounded-lg border border-themepink/30 px-3 py-2 text-xs text-themepink hover:bg-themepink/10">บันทึกแพ็กเกจนี้</button>
+                </div>
+            `).join('');
+        }
+
+        function saveHeroFromAdmin() {
+            updateSiteTextField('heroTitle', document.getElementById('adminHeroTitle')?.value.trim() || siteConfig.heroTitle);
+            updateSiteTextField('heroWelcomeText', document.getElementById('adminHeroWelcomeText')?.value.trim() || siteConfig.heroWelcomeText);
+            siteConfig.heroDescription = document.getElementById('adminHeroDescription')?.value ?? siteConfig.heroDescription;
+            saveSiteConfig();
+            renderHeroContent();
+        }
+
+        function saveThemeFromAdmin() {
+            updateThemeField('backgroundStart', document.getElementById('adminThemeStart')?.value.trim() || siteConfig.backgroundStart);
+            updateThemeField('backgroundEnd', document.getElementById('adminThemeEnd')?.value.trim() || siteConfig.backgroundEnd);
+        }
+
+        function savePaymentFromAdmin() {
+            updatePaymentField('accountName', document.getElementById('adminPaymentAccountName')?.value.trim() || siteConfig.payment.accountName);
+            updatePaymentField('accountNumber', document.getElementById('adminPaymentAccountNumber')?.value.trim() || siteConfig.payment.accountNumber);
+            updatePaymentField('bankName', document.getElementById('adminPaymentBankName')?.value.trim() || siteConfig.payment.bankName);
+            updatePaymentField('promptPay', document.getElementById('adminPaymentPromptPay')?.value.trim() || siteConfig.payment.promptPay);
+            updatePaymentField('imageUrl', document.getElementById('adminPaymentImageUrl')?.value.trim() || siteConfig.payment.imageUrl);
+        }
+
+        function saveContactFromAdmin(index) {
+            updateContactField(index, 'label', document.getElementById(`adminContactLabel${index}`)?.value.trim() || siteConfig.contacts[index].label);
+            updateContactField(index, 'url', document.getElementById(`adminContactUrl${index}`)?.value.trim() || siteConfig.contacts[index].url);
+            updateContactField(index, 'description', document.getElementById(`adminContactDescription${index}`)?.value.trim() || siteConfig.contacts[index].description);
+        }
+
+        function savePlanFromAdmin(index) {
+            updatePlanField(index, 'name', document.getElementById(`adminPlanName${index}`)?.value.trim() || siteConfig.plans[index].name);
+            updatePlanField(index, 'price', document.getElementById(`adminPlanPrice${index}`)?.value || siteConfig.plans[index].price);
+            updatePlanField(index, 'description', document.getElementById(`adminPlanDescription${index}`)?.value.trim() || siteConfig.plans[index].description);
+            updatePlanField(index, 'imageUrl', document.getElementById(`adminPlanImage${index}`)?.value.trim() || siteConfig.plans[index].imageUrl);
+        }
+
+
+        function openAuthModal(mode) {
+            authMode = mode;
+            clearAuthMessage();
+            updateAuthTabUI();
+            adminPanel.classList.toggle('hidden', mode !== 'admin' || !currentUser || !currentUser.isAdmin);
+            authModal.classList.remove('hidden');
+            setTimeout(() => {
+                authModal.classList.remove('opacity-0');
+                authModalContent.classList.remove('scale-95');
+                authModalContent.classList.add('scale-100');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAuthModal() {
+            authModal.classList.add('opacity-0');
+            authModalContent.classList.remove('scale-100');
+            authModalContent.classList.add('scale-95');
+            setTimeout(() => {
+                authModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        function switchAuthTab(mode) {
+            authMode = mode;
+            clearAuthMessage();
+            updateAuthTabUI();
+            adminPanel.classList.toggle('hidden', mode !== 'admin' || !currentUser || !currentUser.isAdmin);
+        }
+
+        function addServiceItem() {
+            const value = serviceInput.value.trim();
+            if (!value) return;
+            servicesData.push(value);
+            saveServices();
+            serviceInput.value = '';
+            renderServices();
+            renderAdminEditor();
+        }
+
+        function updateServiceItem(index) {
+            const input = adminServiceEditor.querySelector(`[data-service-index="${index}"]`);
+            if (!input) return;
+            servicesData[index] = input.value.trim() || servicesData[index];
+            saveServices();
+            renderServices();
+            renderAdminEditor();
+        }
+
+        function removeServiceItem(index) {
+            servicesData.splice(index, 1);
+            saveServices();
+            renderServices();
+            renderAdminEditor();
+        }
+
+        function logoutAdmin() {
+            currentUser = null;
+            localStorage.removeItem('pinkjulieland-user');
+            adminPanel.classList.add('hidden');
+            setAuthMessage('ออกจากระบบแอดมินแล้ว');
+        }
+
+        function openModal() {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        authForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const usernameOrEmail = authEmail.value.trim();
+            const password = authPassword.value.trim();
+            const name = authName.value.trim();
+
+            if (authMode === 'admin') {
+                const email = usernameOrEmail.toLowerCase();
+                if (ADMIN_EMAILS.includes(email)) {
+                    currentUser = { email, isAdmin: true };
+                    localStorage.setItem('pinkjulieland-user', JSON.stringify(currentUser));
+                    adminPanel.classList.remove('hidden');
+                    setAuthMessage('เข้าสู่ระบบ Admin สำเร็จ');
+                    renderAdminEditor();
+                } else {
+                    setAuthMessage('อีเมลนี้ยังไม่ได้รับสิทธิ์ Admin');
+                }
+                return;
+            }
+
+            if (!usernameOrEmail || !password) {
+                setAuthMessage('กรุณากรอกชื่อและรหัสผ่าน');
+                return;
+            }
+
+            const username = usernameOrEmail;
+
+            if (authMode === 'register') {
+                if (findUserByName(username)) {
+                    setAuthMessage('ชื่อนี้ถูกใช้งานแล้ว');
+                    return;
+                }
+
+                usersData.push({
+                    name: username,
+                    password,
+                    contactEmail: name || ''
+                });
+                saveUsers();
+                renderStats();
+
+                currentUser = {
+                    name: username,
+                    contactEmail: name || '',
+                    isAdmin: false
+                };
+                localStorage.setItem('pinkjulieland-user', JSON.stringify(currentUser));
+                setAuthMessage('สมัครสมาชิกสำเร็จ');
+                return;
+            }
+
+            const matchedUser = findUserByName(username);
+            if (!matchedUser || matchedUser.password !== password) {
+                setAuthMessage('ชื่อหรือรหัสผ่านไม่ถูกต้อง');
+                return;
+            }
+
+            currentUser = {
+                name: matchedUser.name,
+                contactEmail: matchedUser.contactEmail || '',
+                isAdmin: false
+            };
+            localStorage.setItem('pinkjulieland-user', JSON.stringify(currentUser));
+            setAuthMessage('เข้าสู่ระบบสำเร็จ');
+        });
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        authModal.addEventListener('click', function(e) {
+            if (e.target === authModal) {
+                closeAuthModal();
+            }
+        });
+
+        renderServices();
+        applySiteConfig();
+        updateAuthTabUI();
+        updatePaymentAmount();
+        renderWalletBalance();
+        loadPurchaseMessage();
+        incrementWebsiteVisits();
+        if (paymentAmountInput) {
+            paymentAmountInput.addEventListener('input', updatePaymentAmount);
+        }
+        if (paymentQuantityInput) {
+            paymentQuantityInput.addEventListener('input', () => {
+                if (slipStatus) {
+                    slipStatus.textContent = `ตั้งจำนวนสินค้าเป็น ${paymentQuantityInput.value || 1} ชิ้นแล้ว`;
+                }
+            });
+        }
+        if (currentUser && currentUser.isAdmin) {
+            renderAdminEditor();
+        }
+    </script>
+</body>
+</html>
+
+
+
